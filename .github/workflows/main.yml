@@ -46,5 +46,5 @@ jobs:
         run: yarn test
       - name: Report coverage
         run: yarn coverage:coveralls
-      -name: run tests in docker compose
+      - name: run tests in docker compose
         run: yarn docker:test
