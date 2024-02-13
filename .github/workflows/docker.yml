@@ -33,7 +33,6 @@ jobs:
         continue-on-error: true
 
   docker:
-    needs: build
     runs-on: ubuntu-latest
     env:
       JWT_SECRET: thisisasamplesecret
