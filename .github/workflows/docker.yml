@@ -31,16 +31,23 @@ jobs:
       - name: Run lint
         run: yarn lint
         continue-on-error: true
-
-  docker:
-    runs-on: ubuntu-latest
-    env:
-      JWT_SECRET: thisisasamplesecret
-
-    steps:
-      - uses: actions/checkout@v2
       - name: Run tests in Docker Compose
+        env:
+          JWT_SECRET: thisisasamplesecret
         run: yarn docker:test
       - name: Stop containers
         if: always()
         run: docker-compose -f docker-compose.yml -f docker-compose.test.yml down
+
+  # docker:
+  #   runs-on: ubuntu-latest
+  #   env:
+  #     JWT_SECRET: thisisasamplesecret
+
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - name: Run tests in Docker Compose
+  #       run: yarn docker:test
+  #     - name: Stop containers
+  #       if: always()
+  #       run: docker-compose -f docker-compose.yml -f docker-compose.test.yml down
