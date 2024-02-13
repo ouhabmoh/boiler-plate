@@ -18,12 +18,12 @@ jobs:
     strategy:
       matrix:
         node-version: [12.x]
-    env:
-      # PORT: 3000
-      # MONGODB_URL: mongodb://localhost:27017/node-boilerplate
-      # JWT_SECRET: thisisasamplesecret
-      # JWT_ACCESS_EXPIRATION_MINUTES: 30
-      # JWT_REFRESH_EXPIRATION_DAYS: 30
+    #   env:
+    # PORT: 3000
+    # MONGODB_URL: mongodb://localhost:27017/node-boilerplate
+    # JWT_SECRET: thisisasamplesecret
+    # JWT_ACCESS_EXPIRATION_MINUTES: 30
+    # JWT_REFRESH_EXPIRATION_DAYS: 30
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
