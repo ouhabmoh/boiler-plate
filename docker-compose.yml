@@ -6,6 +6,9 @@ services:
     image: node-app
     environment:
       - MONGODB_URL=mongodb://mongodb:27017/node-boilerplate
+      - JWT_SECRET=${JWT_SECRET}
+      - JWT_ACCESS_EXPIRATION_MINUTES=30
+      - JWT_REFRESH_EXPIRATION_DAYS=30
     ports:
       - '3000:3000'
     depends_on:

@@ -1,4 +1,4 @@
-name: Node.js CI
+name: Node.js CI with docker
 
 on:
   push:
@@ -9,21 +9,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    # services:
-    #   mongodb:
-    #     image: mongo:latest
-    #     ports:
-    #       - 27017:27017
-
     strategy:
       matrix:
         node-version: [12.x]
-    #   env:
-    # PORT: 3000
-    # MONGODB_URL: mongodb://localhost:27017/node-boilerplate
-    # JWT_SECRET: thisisasamplesecret
-    # JWT_ACCESS_EXPIRATION_MINUTES: 30
-    # JWT_REFRESH_EXPIRATION_DAYS: 30
+
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
@@ -42,13 +31,17 @@ jobs:
       - name: Run lint
         run: yarn lint
         continue-on-error: true
-      #     - name: Run tests
-      #      run: yarn test
-      # - name: Report coverage
-      #   run: yarn coverage:coveralls
-      - name: run tests in docker compose
-        run: yarn docker:test
 
+  docker:
+    needs: build
+    runs-on: ubuntu-latest
+    env:
+      JWT_SECRET: thisisasamplesecret
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run tests in Docker Compose
+        run: yarn docker:test
       - name: Stop containers
         if: always()
         run: docker-compose -f docker-compose.yml -f docker-compose.test.yml down
