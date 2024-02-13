@@ -48,3 +48,7 @@ jobs:
       #   run: yarn coverage:coveralls
       - name: run tests in docker compose
         run: yarn docker:test
+
+      - name: Stop containers
+        if: always()
+        run: docker-compose -f docker-compose.yml -f docker-compose.test.yml down
